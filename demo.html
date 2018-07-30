@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>big data traffic demo by lrushx(Kaibo) @ 07/27/2018</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i">
+<link rel="stylesheet" type="text/css" href="./css/demo_chart_style.css">
+</head>
+
+<body>
+
+<!--
+<a class="btn-back" href="http://linearfold.eecs.oregonstate.edu">
+  <span> &nbsp; back to LinearFold homepage &nbsp;</span>
+</a><br><br>
+-->
+<h2 id="demo"><br><br> 选择<u>日期</u>和<u>天气</u>以显示该状态的路况。调整拖动条可以查看不同时间路况。<br>
+  地图上<span style="color:blue;">悬停</span>可以站台和路段信息。<br> 
+  <span style="color:blue;">点击</span>地图上的公交站点可以显示具体通勤时间。 </h2>
+
+
+<select class="select" id="dayid" onchange="DC_nextInput()">
+  <option value="1">日期</option>
+  <option value="weekdays">工作日</option>
+  <option value="weekends">节假日</option>
+</select>
+
+
+<select class="select" id="weatherid" disabled onchange="DC_confirmInput()">
+  <option value="1">天气</option>
+  <option value="regular">晴天</option>
+  <option value="rainy">雨天</option>
+</select>
+
+<button type="button" onclick="DC_removeTable()"> 重置时间表 </button>
+<!--
+<select class="select" id="seqNo" disabled onchange="confirmInput()">
+<option data-c1="工作日" value="00">seq00: a.I1.e.S.paniceum.UNK.SSU.114 (len:210)</option>
+<option data-c1="工作日" value="01">seq01: a.I1.e.L.dispersa.UNK.SSU.114 (len:211)</option>
+<option data-c1="工作日" value="02">seq02: a.I1.e.L.dispersa.UNK.SSU.789 (len:218)</option>
+<option data-c1="工作日" value="03">seq03: a.I1.e.L.dispersa.UNK.SSU.1210 (len:221)</option>
+<option data-c1="工作日" value="04">seq04: a.I1.e.L.dispersa.UNK.SSU.287 (len:229)</option>
+<option data-c1="工作日" value="05">seq05: a.I1.e.S.paniceum.UNK.SSU.287 (len:234)</option>
+<option data-c1="工作日" value="06">seq06: a.I1.e.L.dispersa.UNK.SSU.1516 (len:240)</option>
+<option data-c1="工作日" value="07">seq07: a.I1.e.S.paniceum.UNK.SSU.1052 (len:240)</option>
+<option data-c1="工作日" value="08">seq08: a.I1.b.S.hofmanii.C3.tMET (len:251)</option>
+<option data-c1="工作日" value="09">seq09: a.I1.e.L.dispersa.UNK.SSU.1046 (len:255)</option>
+<option data-c1="工作日" value="10">seq10: a.I1.e.S.paniceum.UNK.SSU.1506 (len:259)</option>
+<option data-c1="工作日" value="11">seq11: a.I1.e.S.paniceum.UNK.SSU.1210 (len:260)</option>
+<option data-c1="工作日" value="12">seq12: a.I1.b.Synechococcus.sp2.C3.tLEU (len:265)</option>
+<option data-c1="工作日" value="13">seq13: a.I1.e.C.merochlorophea.UNK.SSU.1389 (len:265)</option>
+<option data-c1="工作日" value="14">seq14: a.I1.e.C.merochlorophea.UNK.SSU.1046 (len:267)</option>
+<option data-c1="工作日" value="15">seq15: a.I1.e.C.merochlorophea.UNK.SSU.1210 (len:267)</option>
+<option data-c1="工作日" value="16">seq16: a.I1.b.Dermocarpa.sp.ATCC29371.C3.tMET (len:268)</option>
+<option data-c1="工作日" value="17">seq17: a.I1.b.Phormidium.sp.N182.C3.tLEU (len:270)</option>
+<option data-c1="工作日" value="18">seq18: a.I1.e.C.merochlorophea.UNK.SSU.1516 (len:274)</option>
+<option data-c1="工作日" value="19">seq19: a.I1.e.C.grayi.UNK.SSU.1046 (len:283)</option>
+<option data-c1="工作日" value="20">seq20: a.I1.m.M.grisea.B2.ND1 (len:285)</option>
+<option data-c1="工作日" value="21">seq21: a.I1.e.C.grayi.UNK.SSU.1516 (len:308)</option>
+<option data-c1="工作日" value="22">seq22: a.I1.e.L.dispersa.UNK.SSU.516 (len:328)</option>
+<option data-c1="工作日" value="23">seq23: a.I1.c.G.prostrata.C3.tLEU (len:336)</option>
+<option data-c1="工作日" value="24">seq24: a.I1.m.S.pombe.B1.OX1 (len:343)</option>
+<option data-c1="工作日" value="25">seq25: a.I1.e.P.carinii.Pc2.C1.LSU.1921 (len:355)</option>
+<option data-c1="工作日" value="26">seq26: a.I1.e.B.ciliata.JCM6865.C1.SSU.1506 (len:357)</option>
+<option data-c1="工作日" value="27">seq27: a.I1.e.B.ciliata.JCM6865.C1.SSU.943 (len:360)</option>
+<option data-c1="工作日" value="28">seq28: a.I1.e.S.sclerotiorum_1837.C1.LSU.798 (len:371)</option>
+<option data-c1="工作日" value="29">seq29: a.I1.m.S.luteus.A1.LSU.2504 (len:373)</option>
+<option data-c1="工作日" value="30">seq30: a.I1.e.P.carinii.Pc1.C1.LSU.1921 (len:375)</option>
+<option data-c1="工作日" value="31">seq31: a.I1.e.P.macrosporus.C1.SSU.943 (len:380)</option>
+<option data-c1="工作日" value="32">seq32: a.I1.e.P.carinii.Pc3.C1.LSU.1921 (len:381)</option>
+<option data-c1="工作日" value="33">seq33: a.I1.e.G.spirotaenia.C1.SSU.1506 (len:387)</option>
+<option data-c1="工作日" value="34">seq34: a.I1.e.P.inouyei.C1.SSU.943 (len:390)</option>
+<option data-c1="工作日" value="35">seq35: a.I1.e.P.pachydermus.C1.SSU.943 (len:392)</option>
+<option data-c1="工作日" value="36">seq36: b.I1.e.M.anisopliae.3.C1.LSU.1921 (len:394)</option>
+<option data-c1="工作日" value="37">seq37: a.I1.e.D.parva.C1.SSU.943 (len:396)</option>
+<option data-c1="工作日" value="38">seq38: a.I1.e.A.capsulatus.CBS213.53.C1.SSU.943 (len:408)</option>
+<option data-c1="工作日" value="39">seq39: a.I1.e.A.stipitatus.C1.SSU.1046 (len:408)</option>
+<option data-c1="工作日" value="40">seq40: a.I1.e.P.inouyei.C1.SSU.1506 (len:409)</option>
+<option data-c1="工作日" value="41">seq41: a.I1.e.Staurastrum.sp.M753.C1.SSU.1506 (len:415)</option>
+<option data-c1="工作日" value="42">seq42: a.I1.e.D.salina.C1.SSU.943 (len:423)</option>
+<option data-c1="工作日" value="43">seq43: a.I1.e.Staurastrum.sp.M752.C1.SSU.1506 (len:423)</option>
+<option data-c1="工作日" value="44">seq44: a.I1.e.A.capsulatus.G184B.C1.SSU (len:425)</option>
+<option data-c1="工作日" value="45">seq45: a.I1.e.A.capsulatus.G184B.C1.SSU (len:425)</option>
+<option data-c1="工作日" value="46">seq46: a.I1.e.E.dermatitidis.C1.SSU.943 (len:426)</option>
+<option data-c1="工作日" value="47">seq47: a.I1.e.A.capsulatus.FLs1.C1.SSU (len:428)</option>
+<option data-c1="工作日" value="48">seq48: a.I1.e.U.maydis.C1.SSU.943 (len:429)</option>
+<option data-c1="工作日" value="49">seq49: a.I1.e.P.macrosporus.C1.SSU.1506 (len:433)</option>
+<option data-c1="工作日" value="50">seq50: a.I1.e.D.parva.C1.SSU.1512 (len:436)</option>
+<option data-c1="工作日" value="51">seq51: a.I1.e.S.granulatum.C1.SSU.1506 (len:437)</option>
+<option data-c1="工作日" value="52">seq52: a.I1.e.M.caldariorum.C1.SSU.1506 (len:439)</option>
+<option data-c1="工作日" value="53">seq53: a.I1.e.P.carinii.C1.SSU.1506 (len:442)</option>
+<option data-c1="工作日" value="54">seq54: a.I1.e.T.malaccensis.C1.LSU.1925 (len:447)</option>
+<option data-c1="工作日" value="55">seq55: a.I1.e.C.saxonicum.C1.SSU.1506 (len:448)</option>
+<option data-c1="工作日" value="56">seq56: a.I1.e.P.clavariiformis.C1.SSU.943 (len:448)</option>
+<option data-c1="工作日" value="57">seq57: a.I1.e.A.adeninivorans.C1.LSU.2449 (len:450)</option>
+<option data-c1="工作日" value="58">seq58: a.I1.e.T.cosmopolitanis.C1.LSU.1925 (len:451)</option>
+<option data-c1="工作日" value="59">seq59: a.I1.e.T.cosmopolitanis.C1.LSU.1925 (len:451)</option>
+<option data-c1="工作日" value="60">seq60: a.I1.e.T.pigmentosa.C1.LSU.1925 (len:451)</option>
+<option data-c1="工作日" value="61">seq61: b.I1.e.M.anisopliae.2.C1.LSU.1921 (len:456)</option>
+<option data-c1="工作日" value="62">seq62: a.I1.e.G.planctonica.C1.SSU.943 (len:461)</option>
+<option data-c1="工作日" value="63">seq63: a.I1.e.B.yamatoana.JCM2896.C1.SSU.1506 (len:468)</option>
+<option data-c1="工作日" value="64">seq64: a.I1.e.C.saccatum.C1.SSU.1512 (len:476)</option>
+<option data-c1="工作日" value="65">seq65: a.I1.e.P.sarcinoidea.C1.SSU.943 (len:476)</option>
+<option data-c1="工作日" value="66">seq66: a.I1.e.C.ellipsoidea.211-1a.C1.SSU.1506 (len:479)</option>
+<option data-c1="工作日" value="67">seq67: a.I1.e.B.yamatoana.JCM2896.C1.SSU.943 (len:480)</option>
+<option data-c1="工作日" value="68">seq68: a.I1.c.A.cherimola.C3.tLEU (len:494)</option>
+<option data-c1="工作日" value="69">seq69: a.I1.e.C.ellipsoidea.IAMC-87.C1.SSU.1506 (len:504)</option>
+<option data-c1="工作日" value="70">seq70: b.I1.e.T.thermophila.C1.LSU.1925 (len:506)</option>
+<option data-c1="工作日" value="71">seq71: b.I1.e.T.thermophila.C1.LSU.1925 (len:506)</option>
+<option data-c1="工作日" value="72">seq72: a.I1.c.S.bicolor.C3.tLEU (len:510)</option>
+<option data-c1="工作日" value="73">seq73: a.I1.e.C.botrytis.C1.SSU.1506 (len:518)</option>
+<option data-c1="工作日" value="74">seq74: a.I1.e.C.mirabilis.C1.SSU.1506 (len:526)</option>
+<option data-c1="工作日" value="75">seq75: b.I1.e.A.griffini.2.C1.SSU.516 (len:526)</option>
+<option data-c1="工作日" value="76">seq76: a.I1.c.P.thunbergii.C3.tLEU (len:550)</option>
+<option data-c1="工作日" value="77">seq77: a.I1.c.S.alterniflora.C3.tLEU (len:554)</option>
+<option data-c1="工作日" value="78">seq78: a.I1.c.S.alterniflora.C3.tLEU (len:554)</option>
+<option data-c1="工作日" value="79">seq79: a.I1.c.S.maritima.C3.tLEU (len:554)</option>
+<option data-c1="工作日" value="80">seq80: a.I1.c.S.alterniflora.C3.tLEU (len:554)</option>
+<option data-c1="工作日" value="81">seq81: a.I1.m.S.luteus.B4.LSU.1923 (len:555)</option>
+<option data-c1="工作日" value="82">seq82: b.I1.e.A.griffini.1.C1.SSU.516 (len:556)</option>
+<option data-c1="工作日" value="83">seq83: a.I1.e.P.yezoensis.C1.SSU.516 (len:561)</option>
+<option data-c1="工作日" value="84">seq84: a.I1.e.M.scalaris.C1.SSU.1506 (len:573)</option>
+<option data-c1="工作日" value="85">seq85: a.I1.c.N.tabacum.C3.tLEU (len:575)</option>
+<option data-c1="工作日" value="86">seq86: a.I1.e.Z.circumcarinata.C1.SSU.1506 (len:602)</option>
+<option data-c1="工作日" value="87">seq87: b.I1.e.P.leucosticta.C1.SSU.516 (len:605)</option>
+<option data-c1="工作日" value="88">seq88: a.I1.b.coliphage.T4.A2.NRDB (len:607)</option>
+<option data-c1="工作日" value="89">seq89: a.I1.m.S.luteus.A1.LSU.2449 (len:611)</option>
+<option data-c1="工作日" value="90">seq90: a.I1.m.S.luteus.B4.LSU.2500 (len:617)</option>
+<option data-c1="工作日" value="91">seq91: a.I1.m.S.luteus.B2.LSU.1974 (len:623)</option>
+<option data-c1="工作日" value="92">seq92: a.I1.e.C.parasitica.E.SSU.1199 (len:640)</option>
+<option data-c1="工作日" value="93">seq93: a.I1.m.S.luteus.C2.LSU.1949 (len:646)</option>
+<option data-c1="工作日" value="94">seq94: a.I1.m.S.luteus.C2.LSU.1685 (len:679)</option>
+<option data-c1="工作日" value="95">seq95: a.I1.b.S.negevensis.B4.LSU.1931 (len:736)</option>
+<option data-c1="节假日" value="00">seq00: Z.mays (len:1490)</option>
+<option data-c1="节假日" value="01">seq01: B.subtilis (len:1552)</option>
+<option data-c1="节假日" value="02">seq02: E.coli (len:1542)</option>
+<option data-c1="节假日" value="03">seq03: H.volcanii (len:1474)</option>
+<option data-c1="节假日" value="04">seq04: D.melanogaster (len:1995)</option>
+<option data-c1="节假日" value="05">seq05: T.gondii (len:1793)</option>
+<option data-c1="节假日" value="06">seq06: H.sapiens.mito (len:0954)</option>
+<option data-c1="节假日" value="07">seq07: B.burgdorferi (len:1537)</option>
+<option data-c1="节假日" value="08">seq08: A.pyrophilus (len:1564)</option>
+<option data-c1="节假日" value="09">seq09: P.staleyi (len:1525)</option>
+<option data-c1="节假日" value="10">seq10: C.psittaci (len:1552)</option>
+<option data-c1="节假日" value="11">seq11: C.elegans (len:0950)</option>
+<option data-c1="节假日" value="12">seq12: F.ananassa (len:1804)</option>
+<option data-c1="节假日" value="13">seq13: T.maritima (len:1562)</option>
+<option data-c1="节假日" value="14">seq14: C.reinhardtii.chloro (len:1474)</option>
+<option data-c1="节假日" value="15">seq15: M.polymorpha (len:1974)</option>
+<option data-c1="节假日" value="16">seq16: A.fulgidus (len:1492)</option>
+<option data-c1="节假日" value="17">seq17: H.sapiens (len:1870)</option>
+<option data-c1="节假日" value="18">seq18: S.cerevisiae (len:1800)</option>
+<option data-c1="节假日" value="19">seq19: P.occultum (len:1497)</option>
+<option data-c1="节假日" value="20">seq20: C.reinhardtii.mito (len:1200)</option>
+<option data-c1="节假日" value="21">seq21: G.intestinalis (len:1452)</option>
+<option data-c1="呵呵哒" value="00">seq00: H.pylori (len:2968)</option>
+<option data-c1="呵呵哒" value="01">seq01: T.thermophilus (len:2915)</option>
+<option data-c1="呵呵哒" value="02">seq02: B.subtilis (len:2927)</option>
+<option data-c1="呵呵哒" value="03">seq03: S.aureus (len:2923)</option>
+<option data-c1="呵呵哒" value="04">seq04: E.coli (len:2904)</option>
+</select>
+-->
+
+<span id="option-container" style="visibility: hidden; position:absolute;"></span>
+<!--
+<button type="button" onclick="drawframe(N=1500,d=20,R=250,range=50,halfOpen=20)">draw circles</button>
+<br>
+<button type="button" onclick="draw_1_to_n(N=1500,d=20,R=250,halfOpen=20)">draw arc</button>
+-->
+<!--<button type="button" onclick="fillPage_go(d=40,R=250,circleScale=50,halfOpen=20)">draw</button>-->
+<p>已选参数：<span id="inputShown" style="color:red;font-size:130%;">未选择</span></p>
+<img id="demoVideo" src="./img/travel.gif" width=800px alt="Instruction Loading..." border="1" />
+<!--
+<iframe id="demoVideo" width="1500px" height="685px"
+src="https://www.youtube.com/embed/Q1fMiw4EsO4?autoplay=1&playlist=Q1fMiw4EsO4&loop=1">
+</iframe>
+-->
+<div id="activeDispDiv" style="display:none">
+  <p>滑动选择时间： 
+	&nbsp&nbsp&nbsp&nbsp&nbsp 6:00 &nbsp
+	<input id="numslidebar" type="range" list="slidemarks" min="0" max="16" value="2" oninput="DC_tempTime()" onchange="DC_change('')"/>&nbsp 22:00&nbsp&nbsp:  &nbsp&nbsp <span id="timeInput" style="color:red;font-size:140%;">08:00</span><span id="slidebarHint"></span></p>    
+
+      <!--onchange="change()" oninput="change()"/ -->   
+
+    <datalist id="slidemarks">
+      <option value="0" label="6:00">
+      <option value="6" label="12:00">
+      <option value="12" label="18:00">
+      <option value="17" label="23:00">
+    </datalist>
+    
+
+    <!-- canvas with red border -->
+    <!--
+    <canvas id="myCanvas" width="1200px" height="1200px" style="border: 1px solid red;">
+    Your browser doesn't support canvas tag.
+    </canvas>
+    -->   
+    
+    <div id="table_div" class="table_abs"></div>
+
+    &nbsp&nbsp&nbsp&nbsp&nbsp
+    <svg version="1.1" id="mySVG" width="1000" height="5050"  style="background: black" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <!--#E9E9F1-->
+    <!--<svg id="mySVG" viewBox="0 0 500 1200"  xmlns="http://www.w3.org/2000/svg">-->
+      Your browser doesn't support svg tag.
+    </svg>    
+
+
+    <!--
+    <p>seq: <br><span id="seqName"></span></p>
+    <p>ref: <br><span id="ref"></span></p>
+    <p>CONTRAfold MFE: <br><span id="cf"></span></p>
+    <p>Vienna RNAfold: <br><span id="vn"></span></p>
+    <p>LinearFold-C: <br><span id="lcf"></span></p>
+    <p>LinearFold-V: <br><span id="lvn"></span></p>
+    -->
+    <div class="tooltipbox"></div>
+    <div class="tooltipbox_stop"></div>
+
+</div>
+
+
+<!-- Back to top button -->
+<a id="return-to-top"></a>
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="./js/demo.js"></script>
+<script src="./js/demo_tooltips.js"></script>
+
+
+</body>
+</html>
