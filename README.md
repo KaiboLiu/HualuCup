@@ -70,7 +70,7 @@ work from 12:30 - 0:52
 
 ### 07/29/2018 Sun
 work from 16:00-23:00 periodically
-1. add highlight of starting stop in table
+1. add highlight in table for selected starting stop
 1. no flow for many-stop display
 1. remove dash attribute in segments:
 ```javascript
@@ -79,6 +79,9 @@ stroke-dasharray:dashLength+" "+dashLength
 ```
 1. naming and reorganizing the data file:
     4 data files: `weekdays_regular.dat`, `weekdays_rainy`, `weekends_regular.dat`, `weekends_rainy`
+1. shift the map downward to fit a line name(808路 etc) at the top the map
+1. add line names and stop names as `text` in `svg`
+1. make a demo vedio for submission
 
 ### 07/30/2018 Mon
 1. enable the button of reset table. 
