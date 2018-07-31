@@ -60,9 +60,8 @@ function DC_tempTime(){
 function DC_change(hint) {
     document.getElementById("timeInput").innerHTML = timeFormat;
     document.getElementById("slidebarHint").innerHTML = hint;
-    console.log('time of day: ' + timeFormat);
+    //console.log('time of day: ' + timeFormat);
     DC_init_map();
-    //fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
 }
 
 
@@ -110,7 +109,6 @@ function DC_init_map(){
         $("#mySVG").empty();
         
         data = data.map[0];
-        console.log(''+data.n_line);  
         console.log(data);  
         DC_render_map(data.n_line, data.n_stops, data.names, data.coordinates,
                       data.index_up[timeInput],data.index_down[timeInput]);
@@ -161,10 +159,10 @@ function DC_render_map(n_line, n_stops, names, coordinates, index_up, index_down
                 var alpha = Math.atan((p2.y-p1.y)/(p2.x-p1.x));
                 var dx = offset * Math.sin(alpha), dy = offset * Math.cos(alpha);
                 if ((alpha * (p2.y-p1.y) < 0) || ((p2.y==p1.y)&&(p2.x<p1.x))){dx = 0-dx; dy = 0-dy}
-                //console.log(dx+','+dy+'');
+                
                 var traffic_color_up    = DC_val2Color(index_up[lineNo][stopNo-1]);
                 var traffic_color_down  = DC_val2Color(index_down[lineNo][stopNo-1]);
-                console.log(lineNo+'_'+stopNo+':'+traffic_color_up+'/'+traffic_color_down);
+                //console.log(lineNo+'_'+stopNo+':'+traffic_color_up+'/'+traffic_color_down+', '+index_up[lineNo][stopNo-1]+'/'+index_down[lineNo][stopNo-1]);
                 var newline_up   = getNode('line', {x1: p1.x-dx, y1:p1.y+dy+y_title, x2:p2.x-dx, y2:p2.y+dy+y_title, 
                                                     stroke:traffic_color_up,   strokeWidth:sideWidth, strokeDashoffset:dashLength*2,
                                                     class:"tooltips-seg line_up"+lineNo, 
@@ -178,8 +176,16 @@ function DC_render_map(n_line, n_stops, names, coordinates, index_up, index_down
                                                     //id:"line"+(lineNo)+'_'+stopNo+':['+names[lineNo][stopNo-1]+','+names[lineNo][stopNo]+']'});
                                                     id:line_name[lineNo]+'路_'+stopNo+'段'});
 
-                //if (index_up[lineNo][stopNo-1]   > 0){ newline_up.classList.add("flow_up"); }
-                //if (index_down[lineNo][stopNo-1] > 0){ newline_down.classList.add("flow_down"); }
+                // comment-out if dash & line flow not wanted
+                if (index_up[lineNo][stopNo-1]   > 0){ 
+                    newline_up.setAttribute("stroke-dasharray",dashLength+" "+(50-dashLength)); 
+                    newline_up.classList.add("flow_up"); 
+                }     
+                // comment-out if dash & line flow not wanted
+                if (index_down[lineNo][stopNo-1] > 0){ 
+                    newline_down.setAttribute("stroke-dasharray",dashLength+" "+(50-dashLength));                     
+                    newline_down.classList.add("flow_down"); 
+                }
 
                 svg.appendChild(newline_up);
                 svg.appendChild(newline_down);
@@ -209,14 +215,14 @@ function DC_render_map(n_line, n_stops, names, coordinates, index_up, index_down
                     legend.innerHTML = names[lineNo][stopNo].slice(0,legendWid)
                                         +'<tspan x='+(p1.x+10)+' dy='+(legendSize*1.5)+'>'
                                         +names[lineNo][stopNo].slice(legendWid)+'</tspan>';
-                    console.log('----'+legend.innerHTML);
+                    console.log('----line break: '+legend.innerHTML);
                 } else{
                     legend.innerHTML = names[lineNo][stopNo];
                 }
     
                 //legend.innerHTML = names[lineNo][stopNo];
                 svg.appendChild(legend);
-                console.log('dot added: line '+ lineNo +':'+ (stopNo+1)+ ' at '+p1.x+','+p1.y);
+                //console.log('dot added: line '+ lineNo +':'+ (stopNo+1)+ ' at '+p1.x+','+p1.y);
                 
             }
         }
@@ -245,7 +251,7 @@ function DC_addTable(lineNo, stopNo) {
     }    
 
     $.getJSON(dataFile, function(data, status) {
-        console.log('read file for table');
+        //console.log('read file for table');
         //timeInput = 0
         data = data.map[0];
         DC_fillTable(data.n_line, data.n_stops, data.names,data.time_up[timeInput],data.time_down[timeInput], lineNo, stopNo);
