@@ -167,14 +167,16 @@ function DC_render_map(n_line, n_stops, names, coordinates, index_up, index_down
                 console.log(lineNo+'_'+stopNo+':'+traffic_color_up+'/'+traffic_color_down);
                 var newline_up   = getNode('line', {x1: p1.x-dx, y1:p1.y+dy+y_title, x2:p2.x-dx, y2:p2.y+dy+y_title, 
                                                     stroke:traffic_color_up,   strokeWidth:sideWidth, strokeDashoffset:dashLength*2,
-                                                    class:"tooltips-seg line_up"+lineNo, id:line_name[lineNo]+'路_up:'+stopNo+':['+names[lineNo][stopNo-1]+'-->'+names[lineNo][stopNo]+']'});
+                                                    class:"tooltips-seg line_up"+lineNo, 
+                                                    id:line_name[lineNo]+'路 上行'+stopNo+'段:['+names[lineNo][stopNo-1]+'-->'+names[lineNo][stopNo]+']'});
                 var newline_down = getNode('line', {x1: p1.x+dx, y1:p1.y-dy+y_title, x2:p2.x+dx, y2:p2.y-dy+y_title, 
                                                     stroke:traffic_color_down, strokeWidth:sideWidth, strokeDashoffset:dashLength*2,
-                                                    class:"tooltips-seg line_down"+lineNo, id:"line"+(lineNo+1)+'_down'+stopNo+':['+names[lineNo][stopNo]+'-->'+names[lineNo][stopNo-1]+']'});
+                                                    class:"tooltips-seg line_down"+lineNo, 
+                                                    id:line_name[lineNo]+'路 下行'+stopNo+'段:['+names[lineNo][stopNo]+'-->'+names[lineNo][stopNo-1]+']'});
                 var newline      = getNode('line', {x1: p1.x,    y1:p1.y+y_title,    x2:p2.x,    y2:p2.y+y_title, 
                                                     stroke:'grey', strokeWidth:centerWidth, class:"tooltips-seg inner-seg line_inner"+lineNo, 
                                                     //id:"line"+(lineNo)+'_'+stopNo+':['+names[lineNo][stopNo-1]+','+names[lineNo][stopNo]+']'});
-                                                    id:"line"+(lineNo)+'_'+stopNo});
+                                                    id:line_name[lineNo]+'路_'+stopNo+'段'});
 
                 //if (index_up[lineNo][stopNo-1]   > 0){ newline_up.classList.add("flow_up"); }
                 //if (index_down[lineNo][stopNo-1] > 0){ newline_down.classList.add("flow_down"); }
@@ -194,7 +196,8 @@ function DC_render_map(n_line, n_stops, names, coordinates, index_up, index_down
                 var newdot = getNode('circle', {cx:p1.x, cy:p1.y+y_title, r:dot_radius, 
                                     stroke:color_dot_stroke, fill:color_dot_fill, strokeWidth:dot_stoke_wid,
                                     class:"tooltips-stop line"+lineNo, 
-                                    id:"line"+(lineNo+1)+"_stop"+(stopNo+1)+':'+names[lineNo][stopNo]+' ('+p1.x+','+p1.y+')',//});
+                                    id:line_name[lineNo]+"路_"+(stopNo+1)+':'+names[lineNo][stopNo],//});
+                                    //id:"line"+(lineNo+1)+"_stop"+(stopNo+1)+':'+names[lineNo][stopNo]+' ('+p1.x+','+p1.y+')',//});
                                     onclick: "DC_addTable("+lineNo+", "+stopNo+")"}); // later: add id and class
                 svg.appendChild(newdot);
                 
