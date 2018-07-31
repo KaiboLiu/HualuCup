@@ -60,8 +60,8 @@ Data Specification for web demo:
     name of line *i* (from 0) | `line_name[i]`
     number of stops in line *i*(from 0)| `data.n_stops[i]`
     name of stop *j* (j from 0) in line *i*(from 0)| `data.names[i][j]`
-    position of stop *j*(from 0) of line *i*(from 0)| `(data.coordinates[i][2*j], data.coordinates[i][2*j+1])`
-    traffic index of from stop <br>\[*j,j+1*\] (j from 0) of line *i*(from 0)| `data.index_up[i][j]`
+    position of stop *j* (from 0) in line *i*(from 0)| `(data.coordinates[i][2*j], data.coordinates[i][2*j+1])`
+    traffic index (or time) of segment <br>\[*j,j+1*\] (j from 0) of line *i* (from 0)| `data.index_up[i][j]`
 
 ### 07/28/2018 Sat
 work from 12:30 - 0:52
