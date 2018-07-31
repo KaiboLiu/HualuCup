@@ -51,12 +51,15 @@ Data Specification for web demo:
     ```
     **question**: [time [line]] or [line [time]]?  
 1. data allocation
-
+    ```javascript
+    data = data.map[0];
+    ```
     info | val
     ---|---
-    number of lines| `data.lines`
-    number of stops in line *i*(from 0)| `data.stops[i]`
-    number of segments in line *i*(from 0)| `data.stops[i]-1`
+    number of lines| `data.n_line`
+    name of line *i* (from 0) | `line_name[i]`
+    number of stops in line *i*(from 0)| `data.n_stops[i]`
+    name of stop *j* (j from 0) in line *i*(from 0)| `data.names[i][j]`
     position of stop *j*(from 0) of line *i*(from 0)| `(data.coordinates[i][2*j], data.coordinates[i][2*j+1])`
     traffic index of from stop <br>\[*j,j+1*\] (j from 0) of line *i*(from 0)| `data.index_up[i][j]`
 
@@ -73,10 +76,10 @@ work from 16:00-23:00 periodically
 1. add highlight in table for selected starting stop
 1. no flow for many-stop display
 1. remove dash attribute in segments:
-```javascript
-var dashLength = 25;
-stroke-dasharray:dashLength+" "+dashLength
-```
+    ```javascript
+    var dashLength = 25;
+    stroke-dasharray:dashLength+" "+dashLength
+    ```
 1. naming and reorganizing the data file:
     4 data files: `weekdays_regular.dat`, `weekdays_rainy`, `weekends_regular.dat`, `weekends_rainy`
 1. shift the map downward to fit a line name(808路 etc) at the top the map
