@@ -91,3 +91,4 @@ stroke-dasharray:dashLength+" "+dashLength
 1. adjust the fontSize of stop names displayed  
 1. adjust the fontStyle of line nemas displayed
 1. shift the svg block to right to show tooltips of leftmost dots
+1. update text in tooltips for line name and stop name
